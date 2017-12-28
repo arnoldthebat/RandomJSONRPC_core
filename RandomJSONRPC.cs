@@ -54,7 +54,7 @@ namespace org.random.JSONRPC
 
         
         /// <summary>
-        /// Creates a new RandomJSONRPC object with the given api key
+        /// Creates a new RandomJSONRPC object with the given api key.
         /// </summary>
         /// <param name="apiKey">The api Key from random.org</param>
         public RandomJSONRPC(String apiKey)
