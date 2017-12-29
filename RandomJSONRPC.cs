@@ -347,7 +347,7 @@ namespace org.random.JSONRPC
         }
         /// <summary>
         /// Verifies the signature of a response previously received from one of the methods in the Signed API. This is used to examine the authenticity of numbers.
-        /// This must be run therefore after a valisd request to retrive signed objects
+        /// This must be run therefore after a valid request to retrive signed objects
         /// </summary>
         /// <returns>True or False</returns>
         public bool VerifySignature()
