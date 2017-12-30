@@ -46,6 +46,7 @@ namespace org.random.JSONRPC
         // Signed Keys and Signature Authenticity requirements
         private readonly string SIGNATURE = "signature";
         private readonly string AUTHENTICITY = "authenticity";
+        private readonly string HASHEDAPIKEY = "hashedApiKey";
 
         // Other hard coding required
         private readonly string RESULT = "result";
@@ -345,9 +346,22 @@ namespace org.random.JSONRPC
         {
             return GetObjectsLeft(RESULT, "bitsLeft");
         }
+
+        ///<summary>
+        /// Signature for signed requests
+        /// </summary>
+        /// <returns> A string containing a base64-encoded signature of the random object, signed with RANDOM.ORG's private key. </returns>
+        public string GetSignature { get => (string)ResultObject.GetValue(SIGNATURE); }
+
+        ///<summary>
+        /// Hashed API Key for signed requests
+        /// </summary>
+        /// <returns> A string containing a base64-encoded SHA-512 hash of the API key. This allows the client to disclose the full contents of the random object to a third party and allow that third party to associate the response with a given apiKey, without requiring the client to disclose the actual apiKey.</returns>
+        public string GetHashedAPIKey { get => (string)RandomObject.GetValue(HASHEDAPIKEY); }
+
         /// <summary>
         /// Verifies the signature of a response previously received from one of the methods in the Signed API. This is used to examine the authenticity of numbers.
-        /// This must be run therefore after a valid request to retrive signed objects
+        /// This must be run therefore as the final method call after a valid request to retrieve signed objects
         /// </summary>
         /// <returns>True or False</returns>
         public bool VerifySignature()
@@ -357,7 +371,6 @@ namespace org.random.JSONRPC
             mJSONParams.Add(SIGNATURE, ResultObject.GetValue(SIGNATURE));
             mJSONRequest = InitMethod(VERIFY_SIGNATURE);
             SendRequest();
-            //RandomObject = ((JObject)mJSONResponse.GetValue(RESULT));
             return (bool)((JObject)mJSONResponse.GetValue(RESULT)).GetValue(AUTHENTICITY);
         }
 
