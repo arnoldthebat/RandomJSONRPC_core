@@ -53,6 +53,14 @@ namespace org.random.JSONRPC
         private readonly string RANDOM = "random";
         private readonly string APIKEY = "apiKey";
 
+        /// <summary>
+        /// Getter for mJSONResponse to allow for upstream functions to return the raw JSON Object for later processing.
+        /// </summary>
+        public JObject JSONResponse
+        {
+            get { return mJSONResponse; }
+        }
+
         
         /// <summary>
         /// Creates a new RandomJSONRPC object with the given api key.
